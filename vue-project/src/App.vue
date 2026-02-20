@@ -126,12 +126,26 @@ import ScrollReveal from './components/ScrollReveal.vue'
 </template>
 
 <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+#app {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .resume-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 3rem 2rem;
   position: relative;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header {
@@ -305,21 +319,75 @@ import ScrollReveal from './components/ScrollReveal.vue'
 }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  
+  .resume-container {
+    padding: 1.5rem 0.75rem;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
   .content-grid {
-    grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
   .name {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+  
+  .title {
+    font-size: 0.85rem;
   }
   
   .contact-info {
-    flex-direction: column;
-    align-items: center;
+    font-size: 0.75rem;
+    gap: 0.25rem;
+    flex-wrap: wrap;
   }
   
   .separator {
     display: none;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+  
+  .section-content,
+  .bullet-list li,
+  .cert-list li {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  
+  .bullet-list,
+  .cert-list {
+    padding-left: 1rem;
+  }
+  
+  .job-title,
+  .degree {
+    font-size: 0.95rem;
+  }
+  
+  .company,
+  .institution {
+    font-size: 0.8rem;
+  }
+  
+  .skills-list {
+    gap: 0.4rem;
+  }
+  
+  .skills-list li {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.6rem;
+  }
+  
+  .experience-item {
+    margin-bottom: 1rem;
   }
 }
 </style>

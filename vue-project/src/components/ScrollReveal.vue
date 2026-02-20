@@ -5,13 +5,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const target = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
 let observer: IntersectionObserver | null = null
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
+  
   observer = new IntersectionObserver(([entry]) => {
     if (entry.isIntersecting) {
       isVisible.value = true
@@ -20,8 +22,8 @@ onMounted(() => {
       }
     }
   }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.01,
+    rootMargin: '0px'
   })
 
   if (target.value) {
@@ -38,18 +40,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* The starting state: invisible and pushed down */
 .reveal-wrapper {
   opacity: 0;
-  transform: translateY(0.6rem);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-/* The ending state: fully visible and in its original position */
 .reveal-wrapper.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 </style>
 

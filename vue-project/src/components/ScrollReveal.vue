@@ -14,7 +14,10 @@ let observer: IntersectionObserver | null = null
 onMounted(async () => {
   await nextTick()
   
-  observer = new IntersectionObserver(([entry]) => {
+  observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+    const entry = entries[0]
+    if (!entry) return
+
     if (entry.isIntersecting) {
       isVisible.value = true
       if (observer && target.value) {
